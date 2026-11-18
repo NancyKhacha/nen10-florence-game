@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Глава «Флоренция, 1495–1505» из юбилейного спецпроекта НЭН. Тестовая версия.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Кто вписал ваше имя?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;1,400&family=Forum&family=Golos+Text:wght@400;500;600&display=swap">
+<style>
+/* Layout: one ledger page; a left margin column carries the year in rubric red, the story runs to its right. Opossum and "today" blocks use a modern sans: two times on one page. */
+:root {
+  --bg: #e9ebef;
+  --page: #f8f8f6;
+  --ink: #1c2130;
+  --muted: #5a6072;
+  --rule: #cdd2dc;
+  --lapis: #2b3f90;
+  --rubric: #b2351f;
+  --chip: #e2e7f3;
+  --chip-ink: #1f2b55;
+  --shadow: 0 1px 2px rgba(28,33,48,.06), 0 8px 28px rgba(28,33,48,.07);
+  --display: "Forum", "Times New Roman", serif;
+  --text: "Alegreya", Georgia, "Times New Roman", serif;
+  --ui: "Golos Text", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f121a; --page: #161a25; --ink: #e6e8ef; --muted: #a1a7b7; --rule: #2b3141;
+    --lapis: #9aacf2; --rubric: #f0806a; --chip: #212a42; --chip-ink: #d9e0fb;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f121a; --page: #161a25; --ink: #e6e8ef; --muted: #a1a7b7; --rule: #2b3141;
+  --lapis: #9aacf2; --rubric: #f0806a; --chip: #212a42; --chip-ink: #d9e0fb;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--text); font-size: 19px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+.wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+/* top bar: modern layer */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--ui); font-size: 13px; color: var(--muted); }
+.bar .brand { letter-spacing: .08em; text-transform: uppercase; font-weight: 600; }
+.tabs { display: inline-flex; background: var(--chip); border-radius: 999px; padding: 3px; gap: 2px; }
+.tabs button { font: inherit; font-weight: 500; border: 0; background: transparent; color: var(--chip-ink); padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--page); color: var(--ink); box-shadow: var(--shadow); }
+
+/* timeline: the four dates are a real sequence */
+.timeline { display: flex; gap: 6px; font-family: var(--ui); font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+.timeline span { padding: 3px 9px; border-radius: 999px; border: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+.timeline span.on { border-color: var(--rubric); color: var(--rubric); }
+.timeline span.done { color: var(--ink); border-color: var(--rule); background: var(--page); }
+
+/* the ledger page */
+.page { background: var(--page); border-radius: 6px; box-shadow: var(--shadow); display: grid; grid-template-columns: 76px 1fr; overflow: hidden; }
+.margin { border-right: 1.5px solid var(--rubric); padding: 28px 10px 28px 0; text-align: right; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.margin .yr { font-family: var(--display); font-size: 24px; line-height: 1; color: var(--rubric); font-variant-numeric: tabular-nums; }
+.margin .obj { font-family: var(--ui); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); max-width: 66px; line-height: 1.25; }
+.body { padding: 28px 28px 32px 24px; min-width: 0; display: flex; flex-direction: column; gap: 14px; }
+.body p { margin: 0; max-width: 62ch; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(38px, 8vw, 58px); line-height: 1.02; margin: 0; text-wrap: balance; letter-spacing: .005em; }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 5.5vw, 38px); line-height: 1.1; margin: 0; text-wrap: balance; }
+.sub { font-family: var(--ui); font-size: 14px; color: var(--muted); display: flex; gap: 10px; flex-wrap: wrap; }
+.sub b { color: var(--rubric); font-weight: 600; }
+.q { font-weight: 700; margin-top: 6px; }
+
+/* opossum: modern voice */
+.op { align-self: flex-start; max-width: 520px; font-family: var(--ui); font-size: 15.5px; line-height: 1.45; background: var(--chip); color: var(--chip-ink); border-radius: 16px 16px 16px 4px; padding: 10px 14px 11px; display: flex; flex-direction: column; gap: 2px; }
+.op .who { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; opacity: .75; }
+
+/* choices as ledger lines */
+.choices { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); }
+.choice { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: 26px 1fr; gap: 4px 10px; padding: 12px 6px 13px 2px; border-bottom: 1px solid var(--rule); }
+.choice .mk { grid-row: span 2; width: 18px; height: 18px; margin-top: 5px; border: 1.5px solid var(--lapis); border-radius: 50%; position: relative; }
+.choice .lb { font-weight: 700; color: var(--lapis); font-size: 19px; line-height: 1.3; }
+.choice .ht { color: var(--muted); font-size: 16.5px; line-height: 1.4; }
+.choice:hover .lb, .choice:focus-visible .lb { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+.choice:focus-visible { outline: 2px solid var(--lapis); outline-offset: 2px; border-radius: 4px; }
+.choice.picked .mk { border-color: var(--rubric); background: var(--rubric); }
+.choice.picked .mk::after { content: ""; position: absolute; left: 5px; top: 1.5px; width: 4px; height: 9px; border: solid var(--page); border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.choice.picked .lb { color: var(--rubric); }
+.choice[disabled] { cursor: default; }
+.choice.faded { opacity: .38; }
+.choice.faded .lb { color: var(--ink); }
+
+.result { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+.result[hidden] { display: none !important; }
+.fade-in { animation: rise .45s ease-out both; }
+@keyframes rise { from { transform: translateY(8px); } to { transform: none; } }
+
+.btn { font-family: var(--ui); font-weight: 600; font-size: 15px; border: 0; cursor: pointer; border-radius: 999px; padding: 11px 20px; background: var(--lapis); color: var(--page); align-self: flex-start; }
+.btn:hover { filter: brightness(1.08); }
+.btn:focus-visible { outline: 2px solid var(--rubric); outline-offset: 3px; }
+.btn.ghost { background: transparent; color: var(--lapis); box-shadow: inset 0 0 0 1.5px var(--lapis); }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* ending */
+.memory { display: flex; flex-direction: column; gap: 8px; padding: 12px 0 14px; border-block: 1px solid var(--rule); }
+.memory .lbl, .lbl { font-family: var(--ui); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.memory p { font-style: italic; }
+.ending-title { display: flex; flex-direction: column; gap: 4px; }
+.ending-title .lbl { color: var(--rubric); }
+
+.now { font-family: var(--ui); background: var(--chip); color: var(--chip-ink); border-radius: 14px; padding: 16px 16px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 15.5px; line-height: 1.45; }
+.now h3 { margin: 0; font-size: 17px; font-weight: 600; }
+.now ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.now a { color: inherit; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, var(--chip-ink) 40%, transparent); }
+.now a:hover { text-decoration-color: currentColor; }
+.now .yr { opacity: .65; font-variant-numeric: tabular-nums; margin-left: 4px; }
+.reward { display: inline-flex; align-items: baseline; gap: 6px; font-family: var(--ui); font-weight: 600; font-size: 15px; color: var(--rubric); }
+.reward small { font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.note { font-family: var(--ui); font-size: 13.5px; color: var(--muted); }
+
+details.hist { border-top: 1px solid var(--rule); padding-top: 10px; }
+details.hist summary { font-family: var(--ui); font-weight: 600; font-size: 15px; cursor: pointer; color: var(--lapis); }
+details.hist dl { margin: 10px 0 0; display: grid; gap: 10px; }
+details.hist dt { font-weight: 700; }
+details.hist dd { margin: 0; font-size: 17px; }
+
+/* full script view for the team */
+.script { display: flex; flex-direction: column; gap: 16px; }
+.script .page { grid-template-columns: 1fr; }
+.script .body { background-image: none; }
+.sec { display: flex; flex-direction: column; gap: 10px; }
+.sec + .sec { border-top: 1px solid var(--rule); padding-top: 16px; }
+.code { font-family: var(--ui); font-size: 11.5px; font-weight: 600; letter-spacing: .06em; color: var(--rubric); background: color-mix(in srgb, var(--rubric) 10%, transparent); padding: 2px 7px; border-radius: 4px; align-self: flex-start; }
+.svc { font-family: var(--ui); font-size: 13.5px; color: var(--muted); }
+.var { border-left: 2px solid var(--rule); padding-left: 12px; display: flex; flex-direction: column; gap: 6px; }
+.stats { font-family: var(--ui); font-size: 14px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+.stats b { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 560px) {
+  body { font-size: 18px; }
+  .page { grid-template-columns: 1fr; }
+  .margin { border-right: 0; border-bottom: 1.5px solid var(--rubric); flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 10px; padding: 16px 18px 10px; text-align: left; }
+  .margin .obj { max-width: none; }
+  .body { padding: 18px 18px 24px; }
+}
+@media (prefers-reduced-motion: reduce) { .fade-in { animation: none; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="bar">
+    <span class="brand">НЭН · 10 лет · Машина времени</span>
+    <div class="tabs" role="group" aria-label="Режим">
+      <button type="button" id="tab-play" aria-pressed="true">Играть</button>
+      <button type="button" id="tab-script" aria-pressed="false">Весь сценарий</button>
+    </div>
+  </div>
+  <div class="timeline" id="timeline" aria-label="Годы истории"></div>
+  <main id="play"></main>
+  <main id="script" class="script" hidden></main>
+</div>
+
+<script>
+const S = {"title": "Кто вписал ваше имя?", "place": "Флоренция, 1495–1505", "reward": 50, "intro": {"p": ["Машина времени чихает и паркуется во Флоренции 1495 года. Опоссум выглядывает первым, нюхает воздух и докладывает: пахнет шерстью, краской и большими деньгами.", "Сегодня вы Катерина, вам семнадцать. Ваш отец торгует сукном и (редкость для девочки) научил вас читать и считать."], "opossum": "Я подожду в машине. Если что, притворюсь мертвым. Мы, опоссумы, так решаем все проблемы.", "button": "Выйти из машины"}, "chapters": [{"id": "ring", "year": "1495", "object": "Кольцо", "p": ["Медичи только что выгнали из города, на площадях спорят о республике и спасении души. А у вас дома спорят о сундуке.", "Свадебный сундук стоит открытый: простыни, платья, отрез хорошей ткани. Отец сидит над семейной книгой и записывает, что вы заберете с собой в новый дом. Ваше имя там уже есть, и рядом с ним стоит сумма.", "Прочитать эту строку вы умеете. Пока непонятно, кто и что будет писать рядом с вашим именем дальше."], "question": "Отцу нужен ответ к воскресенью. Кому вы скажете «да»?", "choices": [{"id": "R1", "label": "Доменико", "hint": "Сын богатого торгового дома. Семьи давно договорились, вы видели его дважды.", "p": ["Вы говорите «да», и дальше все идет как по нотам. Сундук расписывают золотом, гости оценивают серебро на глаз, свекровь целует вас в лоб.", "В новом доме есть все: слуги, кладовые, вино с собственных виноградников. И у каждой вещи уже есть хозяин. Свечи у свекрови, деньги у свекра, книга у Доменико.", "— Если что-то понадобится, скажи мне, — улыбается свекровь.", "Первый год вы так и делаете. На второй замечаете, что ни одной покупки дороже мыла сами не решили."], "opossum": "Зато мыло хорошее.", "memory": "Вы вошли в богатый дом по договору семей. Деньги появились раньше, чем право ими распоряжаться."}, {"id": "R2", "label": "Бернардо", "hint": "Вдовец, у него восьмилетний сын Маттео. Отец говорит, что дом надежный.", "p": ["В день, когда в дом вносят ваш сундук, у двери стоит Маттео. Восемь лет, руки за спиной.", "— Тут стоял сундук моей мамы, — говорит он и показывает на стену.", "Бернардо делает вид, что не слышал. Его сестра делает вид, что слышала все. Родня покойной жены приходит по воскресеньям и очень громко смотрит на ваши занавески.", "Вечером вы просите поставить ваш сундук в другой угол, а старый не трогать. Утром Маттео здоровается. Сквозь зубы, но первым."], "opossum": null, "memory": "Вы вошли в дом, где уже была своя история, и строили свое место рядом с памятью о другой женщине."}, {"id": "R3", "label": "Лука", "hint": "Небогатый ткач, вы знаете его с детства. Отец против.", "p": ["Вы с Лукой встречаетесь у церкви. Свидетелей двое: его приятель и соседка, которая все равно узнала бы первой. Вы говорите: «Беру тебя в мужья». Он отвечает: «Беру тебя в жены». Все.", "Ни священника, ни пира, и все же брак настоящий: в 1495 году церковь признает союз, если двое свободных людей ясно сказали друг другу «да». Тайные свадьбы она запрещает и ругает, но признает.", "Отец отказывается отдавать сундук. Мать передает через служанку отрез ткани и записку: «Ешь. Не простужайся»."], "opossum": "(на всякий случай притворяется мертвым)", "memory": "Вы вышли за Луку раньше, чем родные успели согласиться. Любовь была, сундука не было."}]}, {"id": "milk", "year": "1497", "object": "Сундук", "p": ["У вас родилась дочь. Вы обе живы, и по меркам XV века это уже отдельная удача.", "Зимой на площади Синьории жгли «суеты»: зеркала, карты, наряды и книги. У вас в доме горит вопрос попроще: кто будет кормить ребенка? Соседки советуют проверенную кормилицу, в доме прикидывают расходы, младенец орет на всю Тоскану."], "question": "Как вы устроите первые месяцы?", "choices": [{"id": "C1", "label": "Кормлю сама", "hint": "Остальные дела подождут.", "p": ["Вы кормите сами и почти перестаете спать. Вышивку, начатую до родов, убирают в сундук: руки заняты, голова тоже.", "В книге за этот год о дочери почти ничего. Расхода нет, значит, нет и строки. Ночные кормления, колики и первый зуб в записи не попадают."], "opossum": "(одобрительно кивает) Моя мама носила на спине двенадцать детенышей разом. Записать это ей тоже было негде.", "memory": "Вы сами кормили дочь. В книге об этом ни строки, хотя работы там было больше, чем в любой строке."}, {"id": "C2", "label": "Кормилица у нас дома", "hint": "Дочь рядом, но это недешево.", "p": ["Кормилица Нанна переезжает к вам со своим сундучком и мнением обо всем на свете. Дочь рядом, вы спите по ночам (ну почти).", "В книге появляется аккуратная строка: плата кормилице, ее хлеб и вино. Так ваша дочь впервые попадает в семейные записи, в графу расходов.", "Через несколько лет эту строку припомнят в семейном споре, и припомните ее не вы."], "opossum": null, "memory": "Кормилица жила в доме. Помощь была рядом и стала самой заметной строкой расходов."}, {"id": "C3", "label": "Кормилица в деревне", "hint": "Так делают многие флорентийские семьи.", "p": ["Вы полдня трясетесь в повозке до деревни в Муджелло. Кормилица — крестьянка с тремя своими детьми и козой. Дочь остается у нее.", "Через месяц вы снова садитесь за вышивку. Раз в несколько недель приходят вести: здорова, ест, кричит. В книге записаны плата и дорога. Сколько раз вы перечитали эти три слова, не записано нигде.", "Через два года дочь вернется домой и неделю будет звать по ночам другую женщину. Потом перестанет."], "opossum": null, "memory": "Дочь росла у кормилицы в деревне. Вы скучали по ней по письмам, а потом знакомились заново."}]}], "interlude": {"year": "1498–1504", "p": ["На той же площади Синьории казнят Савонаролу, который жег зеркала. В 1499-м у вас рождается сын. В 1504-м на площадь ставят «Давида» Микеланджело (пять метров мрамора без единой нитки), и город месяц обсуждает только его."], "opossum": "Прошу заметить: я тоже хожу без одежды, и никто не возмущается."}, "final": {"id": "book", "year": "1505", "object": "Расходная книга", "p": ["Вам двадцать семь. Дочери восемь, сыну шесть.", "Вечером вы открываете семейную книгу. Ваше имя встречается там несколько раз: в день свадьбы, в дни рождения детей, рядом с суммами. Что делали вы сами, не написано нигде.", "Впервые за десять лет у вас есть немного свободного времени и немного своих денег. На все не хватит."], "variants": {"R2": "Маттео восемнадцать, и он уже выше отца."}, "question": "Чего вы хотите добиться?", "choices": [{"id": "F1", "label": "Пусть мой вклад запишут в книгу", "hint": "Все, что вы принесли, сделали и сберегли."}, {"id": "F2", "label": "Хочу брать заказы на вышивку", "hint": "И получать за них плату."}, {"id": "F3", "label": "Хочу учить дочь читать и считать", "hint": "Даже если все говорят, что ей это ни к чему."}]}, "endings": {"F1": {"title": "Именная строка", "before": ["Вы выписываете все по порядку: что принесли с собой, что сделали руками, что продали и на чем сберегли. Список выходит на три страницы."], "variants": {"R1": "Доменико долго молчит, потом обмакивает перо. Свекровь впервые за десять лет спрашивает вас, а не сообщает вам.", "R2": "Бернардо заводит для вас отдельную страницу. Записи о матери Маттео остаются на месте: чтобы вписать вас, никого не пришлось вычеркивать.", "R3": "С этими тремя страницами вы идете к отцу. Он ворчит час, потом обмакивает перо и вписывает в свою книгу ваш брак с Лукой. Про сундук обещает подумать."}, "after": ["Теперь в книге есть строка с вашим именем и тем, что сделали вы.", "Дочь просит показать, где написано «мама». Вы ведете пальцем по строке."], "now": {"lead": "Через пятьсот лет у этого появится название.", "title": "Невидимый труд", "url": "https://n-e-n.ru/nevidimiy-trud/", "year": "2026"}}, "F2": {"title": "Первый заказ", "before": ["Соседка приводит жену суконщика: к свадьбе дочери нужны вышитые рукава. Первую пару вы распарываете и переделываете. Вторую принимают."], "variants": {"R1": "В доме Доменико считают, что жене такой семьи брать плату неприлично. Вы откладываете эти деньги на приданое дочери, и спорить с вами становится трудно.", "R2": "Маттео сам относит рукава заказчице и торгуется так, что вам за него немного стыдно и очень приятно.", "R3": "Лука освобождает вам угол мастерской. Тот самый, где стоял бы сундук, если бы отец его отдал."}, "after": ["Плату приносят серебром и записывают в книгу. Чьим почерком — вопрос следующего десятилетия."], "now": {"lead": "Работа после детей — тоже про договоренности.", "title": "Есть ли жизнь после декрета? 7 матерей, которые рискнули все изменить", "url": "https://n-e-n.ru/worklife/", "year": "2021"}}, "F3": {"title": "Два имени", "before": ["Учитель берет недорого, но приходит только по вторникам. В остальные дни дочь учите вы, по той же семейной книге: другой в доме нет."], "variants": {"R1": "Свекровь уверена, что девочке хватит молитв и рукоделия. Вы платите учителю сами, продав свои коралловые бусы, и разговор затихает.", "R2": "Маттео приносит сестре свою старую азбуку и делает вид, что ему все равно.", "R3": "Лука сначала ворчит про деньги, потом садится рядом. Выясняется, что читает он хуже дочери."}, "after": ["Через полгода она читает строку без подсказки. Строка про оливковое масло, но какая разница.", "Вы просите ее написать на полях два имени: свое и ваше. Лет через восемь ей тоже начнут собирать сундук. Строку рядом со своим именем она прочитает сама."], "now": {"lead": "Спойлер из будущего: считать девочки умеют не хуже.", "title": "Новые исследования показали, что у мальчиков и девочек одинаковые способности к математике", "url": "https://n-e-n.ru/math/", "year": "2019"}}}, "extraNow": {"R2": {"title": "Сказка — ложь! Ученые разрушили миф о злой мачехе", "url": "https://n-e-n.ru/stepmother/", "year": "2021"}, "C2": {"title": "Кто такие кормилицы и существуют ли они сейчас?", "url": "https://n-e-n.ru/wetnurse/", "year": "2020"}, "C3": {"title": "Кто такие кормилицы и существуют ли они сейчас?", "url": "https://n-e-n.ru/wetnurse/", "year": "2020"}}, "history": [["Брак по согласию", "До Тридентского собора (1563) церковь считала брак действительным, если двое свободных людей ясно сказали друг другу «да». Священник и согласие родителей для этого не требовались. Тайные браки при этом запрещались, и доказать такой союз потом бывало трудно."], ["Приданое", "Без него флорентийская свадьба почти не обходилась. В 1425 году город даже завел фонд приданого Monte delle doti, куда отцы вкладывали деньги на будущее дочерей. Пока длился брак, приданым распоряжался муж, а вдова могла потребовать его назад."], ["Возраст", "По флорентийскому кадастру 1427 года невесте при первом браке было в среднем около 18 лет, жениху около 30. Вдовец с ребенком и юная жена — обычная для города пара."], ["Кормилицы", "Флорентийские семьи с достатком часто отдавали младенцев кормилицам в деревню, нередко больше чем на год. Плату отцы аккуратно записывали в семейные книги."], ["Семейные книги", "Ricordanze — смесь бухгалтерии и семейной хроники: свадьбы, рождения, приданое, долги, плата слугам. Вели их обычно мужчины."], ["Грамотность", "Девочек из купеческих семей иногда учили читать и считать дома. Флорентийка Алессандра Мачинги Строцци в XV веке сама вела дела семьи и писала письма сыновьям в изгнание."], ["Город", "В 1494 году Медичи изгнали из Флоренции. В 1497-м на площади Синьории устроили «костер тщеславия», в 1498-м там же казнили Савонаролу, в 1504-м рядом с дворцом Синьории поставили «Давида» Микеланджело."]], "outro": {"share": "Поделиться финалом", "again": "Пройти по-другому", "again_note": "Хроны за главу уже начислены, но другие финалы стоит увидеть.", "exit": "Закрыть книгу и вернуться в машину времени"}};
+const YEARS = ["1495", "1497", "1498–1504", "1505"];
+const STEP_YEAR = { intro: 0, ring: 0, milk: 1, interlude: 2, book: 3, ending: 3 };
+const ORDER = ["intro", "ring", "milk", "interlude", "book", "ending"];
+
+let state = { step: "intro", picks: {} };
+
+function el(tag, attrs, ...kids) {
+  const n = document.createElement(tag);
+  if (attrs) for (const [k, v] of Object.entries(attrs)) {
+    if (v == null || v === false) continue;
+    if (k === "class") n.className = v;
+    else if (k === "text") n.textContent = v;
+    else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+    else n.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()) if (c != null) n.append(c);
+  return n;
+}
+const P = (t) => el("p", { text: t });
+const paras = (arr) => (arr || []).map(P);
+function opossum(t) {
+  if (!t) return null;
+  return el("div", { class: "op" }, el("span", { class: "who", text: "Опоссум" }), el("span", { text: t }));
+}
+function pageShell(year, object, ...content) {
+  return el("section", { class: "page" },
+    el("div", { class: "margin", "aria-hidden": "true" },
+      el("span", { class: "yr", text: year }),
+      object ? el("span", { class: "obj", text: object }) : null),
+    el("div", { class: "body" }, ...content));
+}
+
+function renderTimeline() {
+  const t = document.getElementById("timeline");
+  t.replaceChildren();
+  const cur = STEP_YEAR[state.step];
+  const playing = !document.getElementById("play").hidden;
+  YEARS.forEach((y, i) => {
+    let cls = "";
+    if (playing && state.step !== "intro") cls = i < cur ? "done" : i === cur ? "on" : "";
+    if (playing && state.step === "ending") cls = "done";
+    t.append(el("span", { class: cls, text: y }));
+  });
+}
+
+function go(step) {
+  state.step = step;
+  render();
+  try { window.scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); } catch (e) {}
+}
+function next() { go(ORDER[ORDER.indexOf(state.step) + 1]); }
+
+function chapterPage(ch) {
+  const result = el("div", { class: "result", hidden: true, "aria-live": "polite" });
+  const buttons = ch.choices.map((c) =>
+    el("button", { class: "choice", type: "button", onclick: () => pick(c) },
+      el("span", { class: "mk" }),
+      el("span", { class: "lb", text: c.label }),
+      el("span", { class: "ht", text: c.hint })));
+  const extra = ch.variants ? ch.variants[state.picks.R] : null;
+  const ps = paras(ch.p);
+  if (extra) ps.splice(1, 0, P(extra));
+
+  function pick(c) {
+    buttons.forEach((b, i) => {
+      b.disabled = true;
+      b.classList.add(ch.choices[i] === c ? "picked" : "faded");
+    });
+    if (ch.id === "ring") state.picks.R = c.id;
+    if (ch.id === "milk") state.picks.C = c.id;
+    if (ch.id === "book") { state.picks.F = c.id; setTimeout(() => go("ending"), 350); return; }
+    result.replaceChildren(...paras(c.p), opossum(c.opossum),
+      el("button", { class: "btn", type: "button", onclick: next }, "Дальше"));
+    result.hidden = false;
+    result.classList.add("fade-in");
+    result.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }
+
+  return pageShell(ch.year, ch.object,
+    ...ps,
+    el("p", { class: "q", text: ch.question }),
+    el("div", { class: "choices" }, buttons),
+    result);
+}
+
+function introPage() {
+  const i = S.intro;
+  return pageShell("1495", "Прибытие",
+    el("div", { class: "sub" }, el("b", { text: "Глава 27 ноября" }), el("span", { text: S.place }), el("span", { text: "≈ 3 минуты" })),
+    el("h1", { text: S.title }),
+    ...paras(i.p),
+    opossum(i.opossum),
+    el("button", { class: "btn", type: "button", onclick: next }, i.button));
+}
+
+function interludePage() {
+  const i = S.interlude;
+  return pageShell(i.year, "Город",
+    ...paras(i.p), opossum(i.opossum),
+    el("button", { class: "btn", type: "button", onclick: next }, "Дальше"));
+}
+
+function findChoice(chId, id) {
+  const ch = chId === "book" ? S.final : S.chapters.find((c) => c.id === chId);
+  return ch.choices.find((c) => c.id === id);
+}
+
+function nowLinks(R, C, F) {
+  const list = [S.endings[F].now];
+  for (const k of [R, C]) {
+    const x = S.extraNow[k];
+    if (x && !list.some((l) => l.url === x.url)) list.push(x);
+  }
+  return list;
+}
+
+function endingPage() {
+  const { R, C, F } = state.picks;
+  const e = S.endings[F];
+  const share = el("button", { class: "btn ghost", type: "button" }, S.outro.share);
+  const shareNote = el("span", { class: "note", "aria-live": "polite" });
+  share.addEventListener("click", async () => {
+    const text = `Мой финал в игре НЭН «${S.title}»: ${e.title}. А ваш?`;
+    try { await navigator.clipboard.writeText(text); shareNote.textContent = "Текст для сторис скопирован."; }
+    catch (err) { shareNote.textContent = text; }
+  });
+  const exitNote = el("p", { class: "note", hidden: true, text: "На лендинге эта кнопка вернет игрока в машину времени и покажет баланс хронов." });
+
+  return pageShell("1505", "Финал",
+    el("div", { class: "memory" },
+      el("span", { class: "lbl", text: "Вы листаете книгу назад" }),
+      P(findChoice("ring", R).memory),
+      P(findChoice("milk", C).memory)),
+    el("div", { class: "ending-title" }, el("span", { class: "lbl", text: "Ваш финал" }), el("h2", { text: e.title })),
+    ...paras(e.before),
+    P(e.variants[R]),
+    ...paras(e.after),
+    el("div", { class: "now" },
+      el("h3", { text: "А сейчас?" }),
+      el("span", { text: e.now.lead }),
+      el("ul", null, nowLinks(R, C, F).map((l) =>
+        el("li", null, el("a", { href: l.url, target: "_blank", rel: "noopener" }, l.title), el("span", { class: "yr", text: "НЭН, " + l.year }))))),
+    el("div", { class: "row" },
+      el("span", { class: "reward" }, `+${S.reward} хронов`, el("small", { text: "число условное" })),
+      share, shareNote),
+    el("details", { class: "hist" },
+      el("summary", { text: "Исторические пояснения" }),
+      el("dl", null, S.history.map(([t, d]) => [el("dt", { text: t }), el("dd", { text: d })]))),
+    el("div", { class: "row" },
+      el("button", { class: "btn", type: "button", onclick: () => { exitNote.hidden = false; } }, S.outro.exit),
+      el("button", { class: "btn ghost", type: "button", onclick: () => { state = { step: "intro", picks: {} }; go("ring"); } }, S.outro.again)),
+    exitNote,
+    el("p", { class: "note", text: S.outro.again_note }));
+}
+
+function render() {
+  const play = document.getElementById("play");
+  let node;
+  switch (state.step) {
+    case "intro": node = introPage(); break;
+    case "ring": node = chapterPage(S.chapters[0]); break;
+    case "milk": node = chapterPage(S.chapters[1]); break;
+    case "interlude": node = interludePage(); break;
+    case "book": node = chapterPage(S.final); break;
+    case "ending": node = endingPage(); break;
+  }
+  node.classList.add("fade-in");
+  play.replaceChildren(node);
+  renderTimeline();
+}
+
+/* ---------- full script view ---------- */
+function words(x) { return (Array.isArray(x) ? x.join(" ") : (x || "")).split(/\s+/).filter(Boolean).length; }
+function routeStats() {
+  const counts = [];
+  const choiceWords = (ch) => ch.choices.reduce((s, c) => s + words(c.label) + words(c.hint), 0);
+  for (const r of S.chapters[0].choices) for (const c of S.chapters[1].choices) for (const f of S.final.choices) {
+    const e = S.endings[f.id];
+    counts.push(words(S.intro.p) + words(S.intro.opossum)
+      + words(S.chapters[0].p) + words(S.chapters[0].question) + choiceWords(S.chapters[0]) + words(r.p) + words(r.opossum)
+      + words(S.chapters[1].p) + words(S.chapters[1].question) + choiceWords(S.chapters[1]) + words(c.p) + words(c.opossum)
+      + words(S.interlude.p) + words(S.interlude.opossum)
+      + words(S.final.p) + words((S.final.variants || {})[r.id]) + words(S.final.question) + choiceWords(S.final)
+      + words(r.memory) + words(c.memory) + words(e.before) + words(e.variants[r.id]) + words(e.after) + words(e.now.lead));
+  }
+  return { n: counts.length, min: Math.min(...counts), max: Math.max(...counts) };
+}
+function renderScript() {
+  const root = document.getElementById("script");
+  const st = routeStats();
+  const secs = [];
+  secs.push(el("div", { class: "sec" },
+    el("h2", { text: S.title }),
+    el("div", { class: "stats" },
+      el("span", null, el("b", { text: "Маршрутов: " }), `${st.n} (три выбора по три варианта), финалов: 3, у каждого три версии в зависимости от первого выбора.`),
+      el("span", null, el("b", { text: "Одно прохождение: " }), `${st.min}–${st.max} слов, около 3 минут чтения.`),
+      el("span", null, el("b", { text: "Условный текст: " }), "в финалах и в начале 1505 года зависит только от первого выбора (R1–R3). Две строки памяти зависят от первого и второго выбора."))));
+
+  secs.push(el("div", { class: "sec" }, el("span", { class: "code", text: "ВХОД · 1495" }), ...paras(S.intro.p), opossum(S.intro.opossum), el("p", { class: "svc", text: "Кнопка: " + S.intro.button })));
+
+  for (const ch of [S.chapters[0], S.chapters[1]]) {
+    secs.push(el("div", { class: "sec" },
+      el("span", { class: "code", text: `${ch.year} · ${ch.object.toUpperCase()}` }),
+      ...paras(ch.p), el("p", { class: "q", text: ch.question }),
+      ...ch.choices.map((c) => el("div", { class: "var" },
+        el("span", { class: "code", text: c.id }),
+        el("p", null, el("b", { text: c.label }), " — " + c.hint),
+        ...paras(c.p), opossum(c.opossum),
+        el("p", { class: "svc", text: "Строка памяти: " + c.memory })))));
+  }
+  secs.push(el("div", { class: "sec" }, el("span", { class: "code", text: S.interlude.year }), ...paras(S.interlude.p), opossum(S.interlude.opossum)));
+  secs.push(el("div", { class: "sec" },
+    el("span", { class: "code", text: "1505 · РАСХОДНАЯ КНИГА" }),
+    ...paras(S.final.p),
+    el("p", { class: "svc", text: "Только после R2, вторым абзацем: " + S.final.variants.R2 }),
+    el("p", { class: "q", text: S.final.question }),
+    ...S.final.choices.map((c) => el("p", null, el("span", { class: "code", text: c.id }), " ", el("b", { text: c.label }), " — " + c.hint))));
+  for (const [id, e] of Object.entries(S.endings)) {
+    secs.push(el("div", { class: "sec" },
+      el("span", { class: "code", text: `ФИНАЛ ${id}` }),
+      el("h2", { text: e.title }),
+      ...paras(e.before),
+      ...["R1", "R2", "R3"].map((r) => el("div", { class: "var" }, el("span", { class: "code", text: r }), P(e.variants[r]))),
+      ...paras(e.after),
+      el("p", { class: "svc", text: `А сейчас: ${e.now.lead} → «${e.now.title}» (${e.now.year}), ${e.now.url}` })));
+  }
+  secs.push(el("div", { class: "sec" },
+    el("span", { class: "code", text: "ДОПОЛНИТЕЛЬНЫЕ ССЫЛКИ" }),
+    el("p", { class: "svc", text: `После R2: «${S.extraNow.R2.title}» (${S.extraNow.R2.year}), ${S.extraNow.R2.url}` }),
+    el("p", { class: "svc", text: `После C2 или C3: «${S.extraNow.C2.title}» (${S.extraNow.C2.year}), ${S.extraNow.C2.url}` })));
+  secs.push(el("div", { class: "sec" },
+    el("span", { class: "code", text: "ИСТОРИЧЕСКИЕ ПОЯСНЕНИЯ" }),
+    el("dl", { style: "display:grid;gap:10px;margin:0" }, S.history.map(([t, d]) => [el("dt", { style: "font-weight:700", text: t }), el("dd", { style: "margin:0", text: d })]))));
+
+  root.replaceChildren(el("section", { class: "page" }, el("div", { class: "body" }, secs)));
+}
+
+function setMode(mode) {
+  const isPlay = mode === "play";
+  document.getElementById("play").hidden = !isPlay;
+  document.getElementById("script").hidden = isPlay;
+  document.getElementById("tab-play").setAttribute("aria-pressed", String(isPlay));
+  document.getElementById("tab-script").setAttribute("aria-pressed", String(!isPlay));
+  if (!isPlay && !document.getElementById("script").firstChild) renderScript();
+  renderTimeline();
+}
+document.getElementById("tab-play").addEventListener("click", () => setMode("play"));
+document.getElementById("tab-script").addEventListener("click", () => setMode("script"));
+
+function start(data) {
+  if (data && data.state && data.state.step) state = data.state;
+  render();
+}
+window.claude?.hot?.snapshot?.(() => ({ state }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>
+
+</body>
+</html>
